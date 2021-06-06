@@ -34,4 +34,30 @@ Step 1: Nvigate on
 https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
 https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-a-specific-shell
 
-Step 2:
+Step 2: added python section
+
+```
+name: Shell Commands 
+
+on: [push]
+
+jobs:
+  run-shell-command: 
+     runs-on: ubuntu-latest
+     steps: 
+       - name: echo a string
+         run: echo "Hello World"
+       - name: multiline script
+         run: | 
+           node -v
+           npm -v
+       - name: python Command
+         run: |
+           import platform
+           print(platform.processor())
+         shell: python 
+
+
+
+```
+

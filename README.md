@@ -168,5 +168,31 @@ Step 3: Push the code
 
 ##### The Checkout Action
 
+Step 1: List the files
+```
+name: Actions Workflow
 
+on : [push]
+
+jobs:
+  run-github-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: List Files
+        run: |
+          pwd
+          ls
+      - name: Simple JS Action
+        id: greet
+        uses: actions/hello-world-javascript-action@v1
+        with: 
+          who-to-greet: Nikhil
+      - name: Log Greeting Time
+        run: echo "${{ steps.greet.outputs.time }}"
+```
+Step 2: Navigate on 
+
+https://github.com/actions/checkout
+
+step 3:
 

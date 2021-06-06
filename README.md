@@ -61,3 +61,43 @@ jobs:
 
 ```
 
+
+Step 3: added windows actions
+
+```
+name: Shell Commands 
+
+on: [push]
+
+jobs:
+  run-shell-command: 
+     runs-on: ubuntu-latest
+     steps: 
+       - name: echo a string
+         run: echo "Hello World"
+       - name: multiline script
+         run: | 
+           node -v
+           npm -v
+       - name: python Command
+         run: |
+           import platform
+           print(platform.processor())
+         shell: python 
+  
+  run-windows-commands:
+    runs-on: windows-latest
+    steps:
+      - name: Directory powerShell
+        run: Get-Location
+      - name: Directory bash
+        run: pwd
+        shell: bash
+
+
+
+```
+
+Step 5:
+for run parallel add needs tag and previous job id
+

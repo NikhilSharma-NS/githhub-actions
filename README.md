@@ -164,4 +164,9 @@ jobs:
             
 ```
 
-Step 3: 
+Step 3: Push the code
+
+##### The Checkout Action
+
+
+

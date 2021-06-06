@@ -99,5 +99,66 @@ jobs:
 ```
 
 Step 5:
-for run parallel add needs tag and previous job id
+for run not parallel(sequential) add needs tag and previous job id
 
+```
+name: Shell Commands 
+
+on: [push]
+
+jobs:
+  run-shell-command: 
+     runs-on: ubuntu-latest
+     steps: 
+       - name: echo a string
+         run: echo "Hello World"
+       - name: multiline script
+         run: | 
+           node -v
+           npm -v
+       - name: python Command
+         run: |
+           import platform
+           print(platform.processor())
+         shell: python 
+  
+  run-windows-commands:
+    runs-on: windows-latest
+    needs: ["run-shell-command"]
+    steps:
+      - name: Directory powerShell
+        run: Get-Location
+      - name: Directory bash
+        run: pwd
+        shell: bash
+
+
+
+```
+
+##### using the Simple Action
+
+
+Step 1: Navigate on
+
+https://github.com/actions/hello-world-javascript-action
+
+Step 2:  create the actions.yml
+
+```
+name: Actions Workflow
+
+on : [push]
+
+jobs:
+  run-github-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simple Js Action
+        steps:
+          - name: Simple JS Action
+            uses: actions/hello-world-javascript-action@v1
+            
+```
+
+Step 3: 

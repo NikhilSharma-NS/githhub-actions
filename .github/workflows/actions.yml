@@ -3,8 +3,8 @@ name: Actions Workflow
 on: 
   push:
   pull_request:
-    types:[closed,assigned,opened,reopned]
-    
+    types: [closed,assigned,opened,reopned]
+
 jobs:
   run-github-actions:
     runs-on: ubuntu-latest

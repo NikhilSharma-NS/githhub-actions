@@ -1133,6 +1133,14 @@ jobs:
     steps:
       - name: Post a user
         run: "curl -X POST http://localhost:3001/api/user -H 'Content-Type: application/json' -d'{\"username\":\"nik\",\"address\":\"pune\"}'"
+      - name: Get User
+        run : curl http://localhost:3001/api/users
 ```
 
 Step 2:
+
+push the changes
+
+##### Running Docker container in individual Steps
+
+Step 1: 

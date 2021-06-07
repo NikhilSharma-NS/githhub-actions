@@ -1104,3 +1104,35 @@ jobs:
 Step 2: 
 
 push this file
+
+##### An Overview of a Simple Dockerized NodeJS API
+
+Step 1: Navigate on https://github.com/alialaa/simple-docker-nodejs-api
+
+##### Running Multiple Docker services in our workflows
+
+
+Step 1;
+
+```
+name: Container
+on: push
+
+jobs: 
+  node-docker:
+    runs-on: ubuntu-latest
+    services:
+      app:
+        image: alialaa17/node-api
+        ports:
+          - 3001:3000
+      mongo:
+        image: mongo
+        ports:
+          - "27017:27017"
+    steps:
+      - name: Post a user
+        run: "curl -X POST http://localhost:3001/api/user -H 'Content-Type: application/json' -d'{\"username\":\"nik\",\"address\":\"pune\"}'"
+```
+
+Step 2:

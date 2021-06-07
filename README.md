@@ -224,5 +224,49 @@ jobs:
         run: echo "${{ steps.greet.outputs.time }}"
 ```
 
-Step 4:
+Step 4: Manually checkout the data
+
+```
+name: Actions Workflow
+
+on : [push]
+
+jobs:
+  run-github-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: List Files
+        run: |
+          pwd
+          ls -a
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+          echo "{{github.token}}"
+          # git clone git@github.com:$GITHUB_REPOSITORY
+          # git checkout $GITHUB_SHA
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: List Files After Checkout 
+        run: |
+          pwd
+          ls
+      - name: Simple JS Action
+        id: greet
+        uses: actions/hello-world-javascript-action@v1
+        with: 
+          who-to-greet: Nikhil
+      - name: Log Greeting Time
+        run: echo "${{ steps.greet.outputs.time }}"
+```
+
+Step 5 : Action markeplace for refernce
+
+https://github.com/marketplace?type=actions
+
+#### Events ,Schedules,External Events and Filters that can Trigger a workflow Run
+
+###### Trigger a work flow with Github Events and Activity Types
+
+Step 1:
 

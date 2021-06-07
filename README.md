@@ -1000,3 +1000,45 @@ jobs:
 Step 1: Create the file matrix.yml
 
 Step 2: 
+
+```
+name: Matrix 
+on: push 
+
+jobs: 
+  node-version:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Log node version 
+        run: node -v
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 6
+      - name: Log node version 
+        run: node -v
+```
+
+##### Creating a matrix for Running a Job with Different Environment
+
+Step 1:
+
+```
+name: Matrix 
+on: push 
+
+jobs: 
+  node-version:
+    strategy: 
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest] 
+        node_version: [6, 8, 10]
+    runs-on: ${{ matrix.os }}
+    steps: 
+      - name: Log node version 
+        run: node -v
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node_version }}
+      - name: Log node version 
+        run: node -v
+```

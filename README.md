@@ -1080,3 +1080,27 @@ jobs:
           echo $IS_UBUNTU_8
 ```
 
+
+##### Using Docker Containers in Jobs
+
+Step 1: create container.yml file
+
+```
+name: Container
+on: push
+
+jobs: 
+  node-docker:
+    runs-on: ubuntu-latest
+    container:
+      image: node:13.5.0-alpine3.10
+    steps:
+      - name: Log node version  
+        run: |
+          node -v
+          cat /etc/os-release
+```
+
+Step 2: 
+
+push this file

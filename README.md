@@ -653,3 +653,8 @@ jobs:
           echo "JOB_ENV: ${JOB_ENV}"
           echo "STEP_ENV: ${STEP_ENV}"
 ```
+
+##### encrypting env Variables
+
+Step 1:
+

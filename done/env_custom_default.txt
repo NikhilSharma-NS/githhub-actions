@@ -1,7 +1,7 @@
 name: ENV variables
 on: push
 env:
-  WF_ENV: ${{secrets.WF_ENV}}
+  WF_ENV: Avaliable to all jobs
 
 jobs:
   log-env:

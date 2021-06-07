@@ -658,3 +658,59 @@ jobs:
 
 Step 1:
 
+Click on https://github.com/NikhilSharma-NS/githhub-actions/settings/secrets/actions/new
+
+Step 2:
+add the secret put key is WF_ENV and any value
+
+Step 3:
+
+```
+name: ENV variables
+on: push
+env:
+  WF_ENV: ${{secrets.WF_ENV}}
+
+jobs:
+  log-env:
+    runs-on: ubuntu-latest
+    env:
+      JOB_ENV: Avaliabel to all steps in log-env job
+    steps:
+      - name: Log env variable 1
+        env: 
+          STEP_ENV: Avaliables to only this step
+        run: |
+          echo "WF_ENV: ${WF_ENV}"
+          echo "JOB_ENV: ${JOB_ENV}" 
+          echo "STEP_ENV: ${STEP_ENV}" 
+      - name: Log env variable 2
+        run: |
+          echo "WF_ENV: ${WF_ENV}"
+          echo "JOB_ENV: ${JOB_ENV}" 
+          echo "STEP_ENV: ${STEP_ENV}" 
+
+  log-default-env: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Default ENV Variables 
+        run: |
+          echo "HOME: ${HOME}"
+          echo "GITHUB_WORKFLOW: ${GITHUB_WORKFLOW}"
+          echo "GITHUB_ACTION: ${GITHUB_ACTION}"
+          echo "GITHUB_ACTIONS: ${GITHUB_ACTIONS}"
+          echo "GITHUB_ACTOR: ${GITHUB_ACTOR}"
+          echo "GITHUB_REPOSITORY: ${GITHUB_REPOSITORY}"
+          echo "GITHUB_EVENT_NAME: ${GITHUB_EVENT_NAME}"
+          echo "GITHUB_WORKSPACE: ${GITHUB_WORKSPACE}"
+          echo "GITHUB_SHA: ${GITHUB_SHA}"
+          echo "GITHUB_REF: ${GITHUB_REF}"
+          echo "WF_ENV: ${WF_ENV}"
+          echo "JOB_ENV: ${JOB_ENV}"
+          echo "STEP_ENV: ${STEP_ENV}"
+```
+
+
+##### using the github_token secret for Authentication
+
+Step 1:

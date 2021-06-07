@@ -1144,3 +1144,33 @@ push the changes
 ##### Running Docker container in individual Steps
 
 Step 1: 
+
+```
+name: Container
+on: push
+
+jobs: 
+  docker-steps:
+    runs-on: ubuntu-latest
+    container:
+      image: node:10.18.0-jessie
+    steps:
+      - name: Log node version  
+        run: node -v
+      - name: step with docker
+        uses: docker://node:12.14.1-alpine3.10
+        with:
+          entrypoint: "/bin/echo"
+          args: 'Hello World'
+      - name: log node version
+        uses: docker://node:12.14.1-alpine3.10
+        with:
+          entrypoint: /usr/local/bin/node
+          args: -v 
+               
+
+```
+
+Step 2:
+
+push the changes 

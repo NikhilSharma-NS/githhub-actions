@@ -20,10 +20,10 @@ jobs:
           entrypoint: /usr/local/bin/node
           args: -v
       - uses: actions/checkout@v1
-      - name: run Script
+      - name: run a script
         uses: docker://node:12.14.1-alpine3.10
         with:
-          entrypoint: sudo ./script.sh
+          entrypoint: ./script.sh
           args: "Jay ho"
       
 

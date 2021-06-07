@@ -787,6 +787,28 @@ jobs:
 ##### encrypting and decrypting files
 
 Step 1:
+Add PASSPHRASE in 
+https://github.com/NikhilSharma-NS/githhub-actions/settings/secrets/actions/new
 
+step 2:
+
+```
+name: ENV Variables 
+on: push 
+env: 
+  WF_ENV: Available to all jobs 
+
+jobs:
+  decrypt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Decrypt
+        run: gpg --quiet --batch --yes --decrypt --passphrase="$PASSPHRASE" --output $HOME/secret.json secret.json.gpg
+        env: 
+          PASSPHRASE: ${{ secrets.PASSPHRASE }}
+      - name: Print our file content 
+        run: cat $HOME/secret.json
+```
 
 

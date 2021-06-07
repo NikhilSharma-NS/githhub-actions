@@ -312,3 +312,41 @@ Step 3: we can see all the checks are running
 
 Step 4: Now navigate on https://docs.github.com/en/actions/reference/events-that-trigger-workflows
 
+```
+name: Actions Workflow
+
+on: 
+  push:
+  pull_request:
+    types: [closed,assigned,opened,reopned]
+
+jobs:
+  run-github-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: List Files
+        run: |
+          pwd
+          ls -a
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+          echo "{{github.token}}"
+          # git clone git@github.com:$GITHUB_REPOSITORY
+          # git checkout $GITHUB_SHA
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: List Files After Checkout 
+        run: |
+          pwd
+          ls
+      - name: Simple JS Action
+        id: greet
+        uses: actions/hello-world-javascript-action@v1
+        with: 
+          who-to-greet: Nikhil
+      - name: Log Greeting Time
+        run: echo "${{ steps.greet.outputs.time }}"
+```
+
+

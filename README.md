@@ -1224,7 +1224,8 @@ jobs:
 
 ##### Sending a Slack Message Using a Docker Container
 
-Step1:
+Step1: use below section slack webhook
+
 ```
       - name: send the msg on slack
         uses: docker://technosophos/slack-notify
@@ -1232,5 +1233,44 @@ Step1:
           SLACK_WEBHOOK: ${{secrets.SLACK_WEBHOOK}}
           SLACK_MESSAGE: "HEllo slack"
 ```          
+
+#### Creating a CI/CD workflow to Automate Testing and Deployment
+
+##### Creating a ReactJS Boilerplate Application
+Step1: run below command 
+npx create-react-app my-app --use-npm
+
+Step 2:
+put yes and app wil create
+
+##### Building and testing the application locally
+
+Step 1: npm run start 
+for start the app
+
+Step 2: npm run test
+for run the test cases
+
+step 3: CI=true npm run test
+test run only once
+
+Step 4: CI=true npm run test -- --coverage
+to generate the coverage file
+
+Step 5: Navigate on
+we can go inside react-app/coverage/icov-report/index.html
+
+Step 6:  npm run build
+it will generate optimized based code for production
+
+Step 7: we can use build folder for deploying 
+
+##### Deploying the Application using Surge
+
+Step 1: npm install --global surge
+
+Step 2: surge
+
+##### Using Prettier to Check for Code Formatting Rules
 
 

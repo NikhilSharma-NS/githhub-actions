@@ -1,6 +1,6 @@
 name: Actions Workflow
 
-on : 
+on: 
   push:
   pullrequest:
     types:[closed,assigned,opened,reopned]

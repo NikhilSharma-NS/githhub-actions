@@ -6,6 +6,12 @@ on:
       - master
       - 'feature/*'  # matches feature/abc,feature/abbb, Not feature/a/b
       - 'feature/**'  # matches  feature/a/b
+    tags: 
+      - v1.*
+    paths:
+      - '**.js'
+    # paths-ignore:
+    #    - 'docs/**'
     
 jobs:
   run-github-actions:

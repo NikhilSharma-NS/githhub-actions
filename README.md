@@ -411,3 +411,116 @@ Postman-Token: b7e135d8-02c8-0b56-5098-aee788cde6cb
 	"event_type":"build"
 }
 ```
+
+Step 3:
+
+Navigate on : https://github.com/settings/apps
+
+and generate the tocken 
+
+Step 4 : use the token in the request with Basic Auth 
+
+Step 5 : Now we will 204 response of step 2
+
+Step 6: Update in action.yml
+
+```
+name: Actions Workflow
+
+on: 
+  repository_dispatch: 
+    types: [build]
+
+  pull_request:
+    types: [closed,assigned,opened,reopned]
+
+jobs:
+  run-github-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: List Files
+        run: |
+          pwd
+          ls -a
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+          echo "{{github.token}}"
+          # git clone git@github.com:$GITHUB_REPOSITORY
+          # git checkout $GITHUB_SHA
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: List Files After Checkout 
+        run: |
+          pwd
+          ls
+      - name: Simple JS Action
+        id: greet
+        uses: actions/hello-world-javascript-action@v1
+        with: 
+          who-to-greet: Nikhil
+      - name: Log Greeting Time
+        run: echo "${{ steps.greet.outputs.time }}"
+```
+
+Step 7:
+```
+POST /repos/NikhilSharma-NS/githhub-actions/dispatches HTTP/1.1
+Host: api.github.com
+Accept: application/vnd.github.baptiste-preview+json
+Content-Type: application/json
+Authorization: Basic Token
+Cache-Control: no-cache
+Postman-Token: 37e93ef2-4bd5-e3cb-f04b-aa859d7dfda9
+
+{
+	"event_type":"build"
+}
+```
+
+Step 8 :
+
+hit the above api and it will be triggered
+
+Step 9 : Add the payload and access in workflow
+
+```
+name: Actions Workflow
+
+on: 
+  repository_dispatch: 
+    types: [build]
+
+  pull_request:
+    types: [closed,assigned,opened,reopned]
+
+jobs:
+  run-github-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: payload 
+        run: echo ${{github.event.client_payload.env}}
+      - name: List Files
+        run: |
+          pwd
+          ls -a
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+          echo "{{github.token}}"
+          # git clone git@github.com:$GITHUB_REPOSITORY
+          # git checkout $GITHUB_SHA
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: List Files After Checkout 
+        run: |
+          pwd
+          ls
+      - name: Simple JS Action
+        id: greet
+        uses: actions/hello-world-javascript-action@v1
+        with: 
+          who-to-greet: Nikhil
+      - name: Log Greeting Time
+        run: echo "${{ steps.greet.outputs.time }}"
+```

@@ -1178,4 +1178,59 @@ push the changes
 
 ##### Creating our own Executable file and Running it in Our Steps
 
-Step 1:
+Step 1: create the script.sh file
+
+```
+#!/bin/sh
+echo $1 $2
+echo "Hello Nikhil"
+
+```
+
+Step 2:
+
+```
+name: Container
+on: push
+
+jobs: 
+  docker-steps:
+    runs-on: ubuntu-latest
+    container:
+      image: node:10.18.0-jessie
+    steps:
+      - name: Log node version  
+        run: node -v
+      - name: step with docker
+        uses: docker://node:12.14.1-alpine3.10
+        with:
+          entrypoint: "/bin/echo"
+          args: 'Hello World'
+      - name: log node version
+        uses: docker://node:12.14.1-alpine3.10
+        with:
+          entrypoint: /usr/local/bin/node
+          args: -v
+      - uses: actions/checkout@v1
+      - name: run Script
+        uses: docker://node:12.14.1-alpine3.10
+        with:
+          entrypoint: sudo ./script.sh
+          args: "Jay ho"
+      
+
+
+```
+
+##### Sending a Slack Message Using a Docker Container
+
+Step1:
+```
+      - name: send the msg on slack
+        uses: docker://technosophos/slack-notify
+        env:
+          SLACK_WEBHOOK: ${{secrets.SLACK_WEBHOOK}}
+          SLACK_MESSAGE: "HEllo slack"
+```          
+
+

@@ -524,3 +524,76 @@ jobs:
       - name: Log Greeting Time
         run: echo "${{ steps.greet.outputs.time }}"
 ```
+
+Step 10 : hit below api
+
+```
+POST /repos/NikhilSharma-NS/githhub-actions/dispatches HTTP/1.1
+Host: api.github.com
+Accept: application/vnd.github.baptiste-preview+json
+Content-Type: application/json
+Authorization: Basic Token
+Cache-Control: no-cache
+Postman-Token: 6121b2b5-0824-e9af-4799-eab1ece4e4d9
+
+{
+	"event_type":"build",
+	"client_payload":{
+		"env":"prod"
+	}
+}
+```
+
+
+##### Filtering workflows by Branches,tag and paths
+https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
+
+Step 1: 
+
+```
+name: Actions Workflow
+
+on:
+  push: 
+    branches:
+      - master
+      - 'feature/*'  # matches feature/abc,feature/abbb, Not feature/a/b
+      - 'feature/**'  # matches  feature/a/b
+    tags: 
+      - v1.*
+    paths:
+      - '**.js'
+    # paths-ignore:
+    #    - 'docs/**'
+    
+jobs:
+  run-github-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: payload 
+        run: echo ${{github.event.client_payload.env}}
+      - name: List Files
+        run: |
+          pwd
+          ls -a
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+          echo "{{github.token}}"
+          # git clone git@github.com:$GITHUB_REPOSITORY
+          # git checkout $GITHUB_SHA
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: List Files After Checkout 
+        run: |
+          pwd
+          ls
+      - name: Simple JS Action
+        id: greet
+        uses: actions/hello-world-javascript-action@v1
+        with: 
+          who-to-greet: Nikhil
+      - name: Log Greeting Time
+        run: echo "${{ steps.greet.outputs.time }}"
+```
+

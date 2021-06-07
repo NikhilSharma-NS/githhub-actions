@@ -269,4 +269,46 @@ https://github.com/marketplace?type=actions
 ###### Trigger a work flow with Github Events and Activity Types
 
 Step 1:
+add the pull request in actions.yml
+
+```
+name: Actions Workflow
+
+on : [push,pull_request]
+
+jobs:
+  run-github-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: List Files
+        run: |
+          pwd
+          ls -a
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+          echo "{{github.token}}"
+          # git clone git@github.com:$GITHUB_REPOSITORY
+          # git checkout $GITHUB_SHA
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: List Files After Checkout 
+        run: |
+          pwd
+          ls
+      - name: Simple JS Action
+        id: greet
+        uses: actions/hello-world-javascript-action@v1
+        with: 
+          who-to-greet: Nikhil
+      - name: Log Greeting Time
+        run: echo "${{ steps.greet.outputs.time }}"
+```
+
+Step 2:
+Create a branch raise the pull request to master
+
+Step 3: we can see all the checks are running
+
+Step 4: Now navigate on https://docs.github.com/en/actions/reference/events-that-trigger-workflows
 

@@ -349,4 +349,65 @@ jobs:
         run: echo "${{ steps.greet.outputs.time }}"
 ```
 
+Step 5 : shedule after every 5 min.
 
+```
+name: Actions Workflow
+
+on: 
+  #push:
+  schedule:
+    - cron: "0/5 * * * *"
+
+  pull_request:
+    types: [closed,assigned,opened,reopned]
+
+jobs:
+  run-github-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: List Files
+        run: |
+          pwd
+          ls -a
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+          echo "{{github.token}}"
+          # git clone git@github.com:$GITHUB_REPOSITORY
+          # git checkout $GITHUB_SHA
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: List Files After Checkout 
+        run: |
+          pwd
+          ls
+      - name: Simple JS Action
+        id: greet
+        uses: actions/hello-world-javascript-action@v1
+        with: 
+          who-to-greet: Nikhil
+      - name: Log Greeting Time
+        run: echo "${{ steps.greet.outputs.time }}"
+```
+
+##### Triggering workflow Manually using the repository Dispatch Event
+
+Step 1: https://docs.github.com/en/actions/reference/events-that-trigger-workflows
+
+Step 2:
+
+sent the dispatch request 
+
+```
+POST /repos/NikhilSharma-NS/githhub-actions/dispatches HTTP/1.1
+Host: api.github.com
+Accept: application/vnd.github.baptiste-preview+json
+Content-Type: application/json
+Cache-Control: no-cache
+Postman-Token: b7e135d8-02c8-0b56-5098-aee788cde6cb
+
+{
+	"event_type":"build"
+}
+```

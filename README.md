@@ -1,7 +1,6 @@
 # githhub-actions
 githhub-actions
 
-
 #### Download log archive
 
 Step 1: click on Actions and work flow and 3 dots.
@@ -959,7 +958,6 @@ jobs:
 
 ##### Error and Timeout Minutes
 
-Step 1:
 
 ```
 name: Shell Commands 
